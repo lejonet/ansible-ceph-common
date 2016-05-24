@@ -57,6 +57,15 @@ redhat_package_dependencies:
   - ntp
   - python-setuptools
 
+gentoo_package_dependencies:
+  - sys-apps/hdparm
+  - net-misc/ntp
+  - dev-python/setuptools
+  - dev-python/pycurl
+
+gentoo_package_use: 'package.use/ceph'
+gentoo_package_keywords: 'package.keywords'
+gentoo_use_flags: 'libaio nss radosgw xfs'
 
 # The list of ceph packages needed for debian.
 # This variable should only be changed if packages are not available from a given
