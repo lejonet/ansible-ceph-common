@@ -40,6 +40,11 @@
     - not ceph_stable_rh_storage
   tags:
     - package-install
+- include: ./installs/install_on_gentoo.yml
+  when:
+    - ansible_os_family == 'Gentoo'
+  tags:
+    - package-install
 
 - include: ./installs/install_rh_storage_on_debian.yml
   when:
