@@ -67,6 +67,8 @@ gentoo_package_use: 'package.use/ceph'
 gentoo_package_keywords: 'package.keywords'
 gentoo_use_flags: 'libaio nss radosgw xfs'
 
+gentoo_ceph_packages:
+  - sys-cluster/ceph
 # The list of ceph packages needed for debian.
 # This variable should only be changed if packages are not available from a given
 # install source or architecture.
