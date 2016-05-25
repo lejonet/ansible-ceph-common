@@ -1,0 +1,28 @@
+---
+- name: install dependencies
+  portage:
+    name: "{{ item }}"
+    state: present
+    sync: web
+  with_items: gentoo_package_dependencies
+
+- name: unmask latest ceph
+  lineinfile:
+    create: yes
+    backup: yes
+    dest: "/etc/portage/{{ (gentoo_package_keywords|bool) | ternary('package.keywords','package.keywords/ceph') }}"
+    line: "sys-cluster/cept ~amd64"
+  when: upgrade_ceph_packages == 'latest'
+
+- name: put USE-flags in package.use for ceph
+  lineinfile:
+    create: yes
+    backup: yes
+    dest: "/etc/portage/{{ (gentoo_package_use|bool) | ternary('package.use','package.use/ceph') }}"
+    line: "sys-cluster/ceph {{ gentoo_use_flags }}"
+
+- name: install ceph
+  portage:
+    name: "{{ item }}"
+    state: "{{ (upgrade_ceph_packages|bool) | ternary('latest', 'present') }}"
+  with_items: gentoo_ceph_packages
